@@ -55,7 +55,11 @@ The tutorial can be completed within 20 minutes, and that includes signing up fo
 
 The left side of the IDE is a simple Monaco editor that can be used to edit the `main.js` and `env.json` files that we will use to store the code.  Click on these file names to open them.  You will notice that the template contains a `beforeTransaction` and a `afterTransaction` function.  There are 3 other transaction triggers - refer to the JavaScript comments.
 
+![Card IDE](/images/Card%20IDE.png?raw=true)
+
 On the right, you will find a way to simulate a transaction and to view any event logs.  Try it out now, by setting a transaction amount (in cents), the merchant code (e.g. 5462), merchant name (e.g. The Coders Bakery) and then click on Simulate card transaction.  Switch to the Event Logs > Simulator logs and you will see a `before` and an `after` log entry, and the time that it was executed at.  Click on `before` to load the record as `simulation.json` in the editor.
+
+![Simulation](/images/Simulation.png?raw=true)
 
 <a name="heading--3"/>
 
@@ -74,8 +78,13 @@ For this tutorial, we will make use of [Cloudflare Workers KV](https://developer
 1. And allocate these Permissions: Account, Workers KV Storage, Edit
 1. You can leave the other settings at their defaults, or restrict the token usage further
 1. Copy the newly created API token: Eh***********************************
+
+![Cloudflare token](/images/Cloudflare%20token.png?raw=true)
+
 1. Now let's create a new KV namespace to store the data in.  Select Menu > Workers & Pages > KV
 1. Create a namespace e.g. `invapi-dual-auth`.  Copy the random ID that is automatically generated.  b3******************************
+
+![Cloudflare KV](/images/Cloudflare%20KV.png?raw=true)
 
 > [!TIP]
 > Keep the Cloudflare dashboard open for later testing.
@@ -98,6 +107,9 @@ Copy the JSON below and change it to suit your needs
     "apiToken": "Eh***************************************"
 }
 ```
+
+![env.json](/images/env.json.png?raw=true)
+
 
 <a name="heading--5"/>
 
@@ -167,6 +179,10 @@ we can see the new record being stored:
 
 | zar-10000-5462-The Coders Bakery | {"cardId":"65****","now":1708973567993} |
 | --- | --- |
+
+
+![Cloudflare KV stored](/images/Cloudflare%20KV%20stored.png?raw=true)
+
 
 ### Retrieving the value for a key
 
@@ -245,7 +261,14 @@ What are you waiting for?  Try it out!
 
 Up to this point, we have only been simulating the transactions.  The next step is to deploy this to one or more cards and to go shopping.  You'll just have to ask the teller to "please try the purchase again".
 
-Steps.....
+Click on Deploy code to card and check for the Code published! popup message.
+
+Any logs will now appear under Event Logs > Production logs
+
+
+
+![Code published](/images/Code%20published.png?raw=true)
+
 
 <a name="heading--6"/>
 
