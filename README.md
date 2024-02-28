@@ -5,7 +5,7 @@ Investec Programmable Banking tutorial - implementing dual authorisation on your
 This is my submission for https://investec.gitbook.io/programmable-banking-community-wiki/get-building/build-events/open-q1-2024-bounty-challenge-or-the-tutorial-quest
 
 
-## Programmable Banking
+## Programmable Banking 
 
 From a developer's perspective, Investec is way ahead of the other South African banks and offers multiple APIs to interact with your bank account, or the VISA credit cards associated with it.  Check out their [amazing offering](https://www.investec.com/en_za/banking/tech-professionals/programmable-banking.html) and [API documentation](https://developer.investec.com/).
 
@@ -20,10 +20,23 @@ The **dual authoriser** business logic implemented is:
 
 The tutorial can be completed within 20 minutes, and that includes signing up for a free Cloudflare account that provides a suitable online key-value pair database.
 
-## Opening the Programmable Banking IDE
+## Content
 
-* [x] Assumption: you have activated [Programmable Banking](https://www.investec.com/en_za/banking/tech-professionals/programmable-banking.html) for your account.  If not, you can now enrol on Investec Online.  
-* [x] Assumption: you have read the [Investec Card documentation](https://developer.investec.com/za/programmable-card)
+**[1. Opening the Programmable Banking IDE](#heading--1)**  
+**[2. Card IDE basics](#heading--2)**  
+**[3. Sign up for an online key-value pair database](#heading--3)**  
+**[4. Store the configuration parameters in env.json](#heading--4)**  
+**[5. Program the business logic in main.js](#heading--5)**  
+**[6. Now what?](#heading--6)**
+
+
+----
+
+## Opening the Programmable Banking IDE <a name="heading--1"/>
+
+> [!NOTE]
+> Assumption: you have activated [Programmable Banking](https://www.investec.com/en_za/banking/tech-professionals/programmable-banking.html) for your account.  If not, you can now enrol on Investec Online.  
+> Assumption: you have read the [Investec Card documentation](https://developer.investec.com/za/programmable-card)
 
 1. Login to Investec Online and select Manage from the menu
 1. Select Investec Developer
@@ -31,13 +44,13 @@ The tutorial can be completed within 20 minutes, and that includes signing up fo
 1. Select your account, find the preferred card and toggle the Enabled button to On
 1. Hover over the card and click <programmable.../> to open the Card IDE
 
-## Card IDE basics
+## Card IDE basics <a name="heading--2"/>
 
 The left side of the IDE is a simple Monaco editor that can be used to edit the `main.js` and `env.json` files that we will use to store the code.  Click on these file names to open them.  You will notice that the template contains a `beforeTransaction` and a `afterTransaction` function.  There are 3 other transaction triggers - refer to the JavaScript comments.
 
 On the right, you will find a way to simulate a transaction and to view any event logs.  Try it out now, by setting a transaction amount (in cents), the merchant code (e.g. 5462), merchant name (e.g. The Coders Bakery) and then click on Simulate card transaction.  Switch to the Event Logs > Simulator logs and you will see a `before` and an `after` log entry, and the time that it was executed at.  Click on `before` to load the record as `simulation.json` in the editor.
 
-## Sign up for an online key-value pair database
+## Sign up for an online key-value pair database <a name="heading--3"/>
 
 For this tutorial, we will make use of [Cloudflare Workers KV](https://developers.cloudflare.com/kv/) that will allow us to write a temporary JSON object representing the transaction.  It will be accessible via an [API](https://developers.cloudflare.com/api/) that allows 1000 write requests per day on the free plan.  You can tweak the tutorial to make use of any other similar API.
 
@@ -58,7 +71,7 @@ For this tutorial, we will make use of [Cloudflare Workers KV](https://developer
 > [!TIP]
 > Keep the Cloudflare dashboard open for later testing.
 
-## Store the configuration parameters in env.json
+## Store the configuration parameters in env.json <a name="heading--4"/>
 
 Back to Investec Online.  We will now edit the `env.json` file in the IDE to store the business logic limits as well as the security tokens generated in the previous step.
 
@@ -76,7 +89,7 @@ Copy the JSON below and change it to suit your needs
 ```
 
 
-## Program the business logic in main.js
+## Program the business logic in main.js <a name="heading--5"/>
 
 ### Key & value
 
@@ -171,15 +184,15 @@ We now have all the pieces to combine all the business logic in the `main.js` fi
 
 * create a key and value
 * retrieve a previous value, if there is one
-*   if not, store the key & value and decline the first transaction
+   *   if not, store the key & value and decline the first transaction
 * check if the previous transaction was within the allowed time window
-*   if not, store the key & value and decline the transaction
+   *   if not, store the key & value and decline the transaction
 * if a different/second card is required, check that they are different
-*   else check that the cards have the same ID
+   *   else check that the cards have the same ID
 * approve the transaction if successful
-*   or store the key & value and decline this transaction
+   *   or store the key & value and decline this transaction
 
-* and, of course, there is no need to do these checks if the transaction is under the specified limit, just immediately approve
+And, of course, there is no need to do these checks if the transaction is under the specified limit, just immediately approve.
 
 Here are the code snippets:
 
@@ -211,18 +224,18 @@ Here are the code snippets:
     }
 ```
 
-and the full `main.js` can be found in the repository.
+and the full [main.js](/main.js) can be found in the repository.
 
 What are you waiting for?  Try it out!
 
 ### Going live
 
-Up to this point, we have only been simulating the transactions.  The next step is to deploy this to one or more cards and to go shopping.  You'll just have to ask the teller to "try the purchase again".
+Up to this point, we have only been simulating the transactions.  The next step is to deploy this to one or more cards and to go shopping.  You'll just have to ask the teller to "please try the purchase again".
 
 Steps.....
 
 
-## Now what?
+## Now what? <a name="heading--6"/>
 
 If you managed to test this out IRL, very well done to you!
 
