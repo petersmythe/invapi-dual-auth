@@ -1,8 +1,8 @@
 # invapi-dual-auth
 
-Investec Programmable Banking tutorial - implementing dual authorisation on your credit cards
+# Investec Programmable Banking tutorial - implementing dual authorisation on your credit cards
 
-This is my submission for https://investec.gitbook.io/programmable-banking-community-wiki/get-building/build-events/open-q1-2024-bounty-challenge-or-the-tutorial-quest
+This is my submission for [https://investec.gitbook.io/programmable-banking-community-wiki/get-building/build-events/open-q1-2024-bounty-challenge-or-the-tutorial-quest](https://investec.gitbook.io/programmable-banking-community-wiki/get-building/build-events/open-q1-2024-bounty-challenge-or-the-tutorial-quest)
 
 
 ## Programmable Banking 
@@ -22,12 +22,12 @@ The tutorial can be completed within 20 minutes, and that includes signing up fo
 
 ## Content
 
-[1. Opening the Programmable Banking IDE](#heading--1)  
-[2. Card IDE basics](#heading--2)  
-[3. Sign up for an online key-value pair database](#heading--3)  
-[4. Store the configuration parameters in env.json](#heading--4)  
-[5. Program the business logic in main.js](#heading--5)  
-[6. Now what?](#heading--6)
+- [Opening the Programmable Banking IDE](#heading--1)  
+- [Card IDE basics](#heading--2)  
+- [Sign up for an online key-value pair database](#heading--3)  
+- [Store the configuration parameters in env.json](#heading--4)  
+- [Program the business logic in main.js](#heading--5)  
+- [Now what?](#heading--6)
 
 
 ----
@@ -36,9 +36,8 @@ The tutorial can be completed within 20 minutes, and that includes signing up fo
 
 ## Opening the Programmable Banking IDE
 
-> [!NOTE]
-> Assumption: you have activated [Programmable Banking](https://www.investec.com/en_za/banking/tech-professionals/programmable-banking.html) for your account.  If not, you can now enroll on Investec Online.  
-> Assumption: you have read the [Investec Card documentation](https://developer.investec.com/za/programmable-card)
+> :warning: **Assumption:** You have activated [Programmable Banking](https://www.investec.com/en_za/banking/tech-professionals/programmable-banking.html) for your account.  If not, you can now enroll on Investec Online.  
+> :warning: **Assumption:** You have read the [Investec Card documentation](https://developer.investec.com/za/programmable-card)
 
 1. Login to Investec Online and select Manage from the menu
 1. Select Investec Developer
@@ -86,8 +85,7 @@ For this tutorial, we will make use of [Cloudflare Workers KV](https://developer
 
 ![Cloudflare KV](./images/Cloudflare%20KV.png?raw=true)
 
-> [!TIP]
-> Keep the Cloudflare dashboard open for later testing.
+> :bulb: **Tip:** Keep the Cloudflare dashboard open for later testing.
 
 <a name="heading--4"/>
 
@@ -282,5 +280,4 @@ What about the first (declined) transaction **pushing** an authorisation request
 
 Let your imagination run wild!
 
-> [!TIP]
-> Join the [Programmable Banking Community](https://investec.gitbook.io/programmable-banking-community-wiki/home/readme) for more inspiration.
+> :bulb: **Tip:** Join the [Programmable Banking Community](https://investec.gitbook.io/programmable-banking-community-wiki/home/readme) for more inspiration.
