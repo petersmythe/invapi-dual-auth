@@ -4,24 +4,26 @@ Investec Programmable Banking tutorial - implementing dual authorisation on your
 
 This is my submission for https://investec.gitbook.io/programmable-banking-community-wiki/get-building/build-events/open-q1-2024-bounty-challenge-or-the-tutorial-quest
 
+
 ## Programmable Banking
 
-From a developer's perspective, Investec is way ahead of the other South African banks and offers multiple APIs to interact with your private bank account, or the VISA credit card associated with it.  Check out their [amazing offering](https://www.investec.com/en_za/banking/tech-professionals/programmable-banking.html) and [API documentation](https://developer.investec.com/).
+From a developer's perspective, Investec is way ahead of the other South African banks and offers multiple APIs to interact with your bank account, or the VISA credit cards associated with it.  Check out their [amazing offering](https://www.investec.com/en_za/banking/tech-professionals/programmable-banking.html) and [API documentation](https://developer.investec.com/).
 
-This tutorial is a mid level guide to writing Javascript code that resides "on" your credit card and executes each time the card is swiped, tapped or otherwise used.  It demonstrates how an external API call can be made to determine whether to allow or deny the transaction.  It can also easily be extended to log transactions to your own cloud-based data store.
+This tutorial is a mid-level guide to writing JavaScript code that resides "on" your credit card and executes each time the card is swiped, tapped or otherwise used.  It demonstrates how an external API call can be made to determine whether to allow or deny the transaction.  It can also easily be extended to log card transactions to your own cloud-based data store.
 
 The **dual authoriser** business logic implemented is:  
-1. any card transaction over a pre-configured limit must be attempted twice.
-1. the first time the transaction will be denied.
-1. if a second, nearly identical transaction is made within a pre-configured time window, it will then be authorised.
-1. the card logic can be pre-configured to require the identical card _OR_ a different card, depending on your requirements. 
-1. the card namespace (or unique identifier) is used to isolate different profiles.
+1. Any card transaction over a pre-configured limit must be attempted twice.
+1. The first time the transaction will be denied.
+1. If a second, nearly identical transaction is made within a pre-configured time window, it will then be authorised.
+1. The card logic can be pre-configured to require the identical card _OR_ a different card, depending on your requirements. 
+1. The card namespace (or unique identifier) is used to isolate different profiles.
 
-The tutorial can be completed within 20 minutes, and that includes signing up for a free Cloudflare account that provides an online key-value pair database.
+The tutorial can be completed within 20 minutes, and that includes signing up for a free Cloudflare account that provides a suitable online key-value pair database.
 
 ## Opening the Programmable Banking IDE
 
 * [x] Assumption: you have activated [Programmable Banking](https://www.investec.com/en_za/banking/tech-professionals/programmable-banking.html) for your account.  If not, you can now enrol on Investec Online.  
+* [x] Assumption: you have read the [Investec Card documentation](https://developer.investec.com/za/programmable-card)
 
 1. Login to Investec Online and select Manage from the menu
 1. Select Investec Developer
@@ -31,13 +33,13 @@ The tutorial can be completed within 20 minutes, and that includes signing up fo
 
 ## Card IDE basics
 
-The left side of the IDE is a simple Monaco editor that can be used to edit the main.js and env.json files that we will use to store the code.  Click on these file names to open them.  You will notice that the template contains a `beforeTransaction` and a `afterTransaction` function.  There are 3 other transaction triggers - refer to the Javascript comments.
+The left side of the IDE is a simple Monaco editor that can be used to edit the `main.js` and `env.json` files that we will use to store the code.  Click on these file names to open them.  You will notice that the template contains a `beforeTransaction` and a `afterTransaction` function.  There are 3 other transaction triggers - refer to the JavaScript comments.
 
-On the right, you will find a way to simulate a transaction and to view any event logs.  Try it out now, by setting a transaction amount (in cents), the merchant code (e.g. 5462), merchant name (e.g. The Coders Bakery) and then click on Simulate card transaction.  Switch to the Event Logs > Simulator logs and you will see a before and an after log entry, and the time that it was executed at.  Click on `before` to load the record as simulation.json in the editor.
+On the right, you will find a way to simulate a transaction and to view any event logs.  Try it out now, by setting a transaction amount (in cents), the merchant code (e.g. 5462), merchant name (e.g. The Coders Bakery) and then click on Simulate card transaction.  Switch to the Event Logs > Simulator logs and you will see a `before` and an `after` log entry, and the time that it was executed at.  Click on `before` to load the record as `simulation.json` in the editor.
 
 ## Sign up for an online key-value pair database
 
-For this tutorial, we will make use of Cloudflare Workers KV that will allow us to write a temporary JSON object representing the transaction.  It will be accessible via an API that allows 1000 write requests per day on the free plan.  You can tweak the tutorial to make use of any other similar API.
+For this tutorial, we will make use of [Cloudflare Workers KV](https://developers.cloudflare.com/kv/) that will allow us to write a temporary JSON object representing the transaction.  It will be accessible via an [API](https://developers.cloudflare.com/api/) that allows 1000 write requests per day on the free plan.  You can tweak the tutorial to make use of any other similar API.
 
 [PUT](https://developers.cloudflare.com/api/operations/workers-kv-namespace-write-key-value-pair-with-metadata) / [GET](https://developers.cloudflare.com/api/operations/workers-kv-namespace-read-key-value-pair) 
 `https://api.cloudflare.com/client/v4/accounts/{account_id}/storage/kv/namespaces/{namespace_id}/values/{key_name}`
@@ -50,14 +52,15 @@ For this tutorial, we will make use of Cloudflare Workers KV that will allow us 
 1. And allocate these Permissions: Account, Workers KV Storage, Edit
 1. You can leave the other settings at their defaults, or restrict the token usage further
 1. Copy the newly created API token: Eh***********************************
-1. Now let's create a new KV (key-value) namespace to store the data in.  Select Menu > Workers & Pages > KV
+1. Now let's create a new KV namespace to store the data in.  Select Menu > Workers & Pages > KV
 1. Create a namespace e.g. `invapi-dual-auth`.  Copy the random ID that is automatically generated.  b3******************************
 
-Hint: keep the Cloudflare dashboard open for later testing.
+> [!TIP]
+> Keep the Cloudflare dashboard open for later testing.
 
 ## Store the configuration parameters in env.json
 
-Back to Investec Online.  We will now edit the env.json file in the IDE to store the business logic limits as well as the security tokens generated in the previous step.
+Back to Investec Online.  We will now edit the `env.json` file in the IDE to store the business logic limits as well as the security tokens generated in the previous step.
 
 Copy the JSON below and change it to suit your needs
 
@@ -87,12 +90,12 @@ We want to modify the `beforeTransaction` function to first build up a unique ke
 
 For the value, we store the `cardId` (to check if the same or a different card is used for the second transaction) and the current timestamp, for later use.
 
-Edit main.js and insert this code at the start of the `beforeTransaction` function, and then simulate a transaction, as before.
+Edit `main.js` and insert this code at the start of the `beforeTransaction` function, Save and then simulate a transaction, as before.
 
-The simulation.json file should open with an output of:
+The `simulation.json` file should open with an output that includes:
 
 ```json
-            ...
+            "...",
             "sandbox": true,
             "type": "before_transaction",
             "authorizationApproved": true,
@@ -103,12 +106,12 @@ The simulation.json file should open with an output of:
                     "content": "zar-10000-5462-The Coders Bakery: {'cardId':'65****', 'now':1708970764037}"
                 }
             ],
-            ...
+            "..."
 ```
 
 ### Storing key & value
 
-Let's write a storeKV function to store this key and value in the data store:
+Let's write a `storeKV` function to store this key and value in the data store:
 
 ```javascript
 async function storeKV(key, value) {
@@ -141,7 +144,7 @@ zar-10000-5462-The Coders Bakery	{"cardId":"65****","now":1708973567993}
 
 ### Retrieving the value for a key
 
-Now that we have got some data to use, let's write a getKV function to retrieve it, based on the provided key.  It might return 404 (Not Found) or an old (expired) value.
+Now that we have got some data to use, let's write a `getKV` function to retrieve it, based on the provided key.  It might return 404 (Not Found) or an old (expired) value.
 
 ```javascript
 async function getKV(key) {
@@ -164,7 +167,7 @@ and use it:
 
 ### Putting it all together
 
-We now have all the pieces to combine all the business logic in the main.js file.  Here's the basic outline:
+We now have all the pieces to combine all the business logic in the `main.js` file.  Here's the basic outline:
 
 * create a key and value
 * retrieve a previous value, if there is one
@@ -179,10 +182,6 @@ We now have all the pieces to combine all the business logic in the main.js file
 * and, of course, there is no need to do these checks if the transaction is under the specified limit, just immediately approve
 
 Here are the code snippets:
-
-
-
-
 
 ```javascript
     // Immediately authorise any purchases under the limit
@@ -212,7 +211,7 @@ Here are the code snippets:
     }
 ```
 
-and the full main.js can be found in the repository.
+and the full `main.js` can be found in the repository.
 
 What are you waiting for?  Try it out!
 
@@ -233,3 +232,5 @@ What about the first (declined) transaction **pushing** an authorisation request
 
 Let your imagination run wild!
 
+> [!TIP]
+> Join the [Programmable Banking Community](https://investec.gitbook.io/programmable-banking-community-wiki/home/readme) for more inspiration.

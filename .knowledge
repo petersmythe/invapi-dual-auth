@@ -1,0 +1,10 @@
+### Cloudflare KV expiration_ttl
+
+As much as I tried to get KV expiring keys to work, and finally figured out that ?expiration_ttl=600 should be a query string parameter, not in the metadata, it just does not seem to function as expected.  Oh well...
+
+https://developers.cloudflare.com/kv/api/write-key-value-pairs/#expiring-keys
+
+### Investec Card IDE bugs
+
+* Toggle Simulator back on doesn't work
+* In env.json, number or boolean gets forced to a string
