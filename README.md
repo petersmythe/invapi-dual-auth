@@ -46,7 +46,7 @@ The tutorial can be completed within 20 minutes, and that includes signing up fo
 1. Select your account, find the preferred card and toggle the Enabled button to On
 1. Hover over the card and click <programmable.../> to open the Card IDE
 
-![Opening Programmable Banking IDE](/images/Opening Programmable Banking IDE.png)
+![Opening Programmable Banking IDE](/images/Opening+Programmable+Banking+IDE.png?raw=true)
 
 
 <a name="heading--2"/>
