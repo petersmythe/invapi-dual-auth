@@ -32,7 +32,9 @@ The tutorial can be completed within 20 minutes, and that includes signing up fo
 
 ----
 
-## Opening the Programmable Banking IDE <a name="heading--1"/>
+<a name="heading--1"/>
+
+## Opening the Programmable Banking IDE
 
 > [!NOTE]
 > Assumption: you have activated [Programmable Banking](https://www.investec.com/en_za/banking/tech-professionals/programmable-banking.html) for your account.  If not, you can now enrol on Investec Online.  
@@ -44,13 +46,20 @@ The tutorial can be completed within 20 minutes, and that includes signing up fo
 1. Select your account, find the preferred card and toggle the Enabled button to On
 1. Hover over the card and click <programmable.../> to open the Card IDE
 
-## Card IDE basics <a name="heading--2"/>
+![Opening Programmable Banking IDE](/images/Opening Programmable Banking IDE.png)
+
+
+<a name="heading--2"/>
+
+## Card IDE basics
 
 The left side of the IDE is a simple Monaco editor that can be used to edit the `main.js` and `env.json` files that we will use to store the code.  Click on these file names to open them.  You will notice that the template contains a `beforeTransaction` and a `afterTransaction` function.  There are 3 other transaction triggers - refer to the JavaScript comments.
 
 On the right, you will find a way to simulate a transaction and to view any event logs.  Try it out now, by setting a transaction amount (in cents), the merchant code (e.g. 5462), merchant name (e.g. The Coders Bakery) and then click on Simulate card transaction.  Switch to the Event Logs > Simulator logs and you will see a `before` and an `after` log entry, and the time that it was executed at.  Click on `before` to load the record as `simulation.json` in the editor.
 
-## Sign up for an online key-value pair database <a name="heading--3"/>
+<a name="heading--3"/>
+
+## Sign up for an online key-value pair database
 
 For this tutorial, we will make use of [Cloudflare Workers KV](https://developers.cloudflare.com/kv/) that will allow us to write a temporary JSON object representing the transaction.  It will be accessible via an [API](https://developers.cloudflare.com/api/) that allows 1000 write requests per day on the free plan.  You can tweak the tutorial to make use of any other similar API.
 
@@ -71,7 +80,9 @@ For this tutorial, we will make use of [Cloudflare Workers KV](https://developer
 > [!TIP]
 > Keep the Cloudflare dashboard open for later testing.
 
-## Store the configuration parameters in env.json <a name="heading--4"/>
+<a name="heading--4"/>
+
+## Store the configuration parameters in env.json
 
 Back to Investec Online.  We will now edit the `env.json` file in the IDE to store the business logic limits as well as the security tokens generated in the previous step.
 
@@ -88,8 +99,9 @@ Copy the JSON below and change it to suit your needs
 }
 ```
 
+<a name="heading--5"/>
 
-## Program the business logic in main.js <a name="heading--5"/>
+## Program the business logic in main.js
 
 ### Key & value
 
@@ -153,7 +165,8 @@ https://dash.cloudflare.com/da******************************/workers/kv/namespac
 
 we can see the new record being stored:
 
-zar-10000-5462-The Coders Bakery	{"cardId":"65****","now":1708973567993}
+| zar-10000-5462-The Coders Bakery | {"cardId":"65****","now":1708973567993} |
+| --- | --- |
 
 ### Retrieving the value for a key
 
@@ -234,8 +247,9 @@ Up to this point, we have only been simulating the transactions.  The next step 
 
 Steps.....
 
+<a name="heading--6"/>
 
-## Now what? <a name="heading--6"/>
+## Now what? 
 
 If you managed to test this out IRL, very well done to you!
 
