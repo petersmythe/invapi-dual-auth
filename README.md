@@ -22,12 +22,12 @@ The tutorial can be completed within 20 minutes, and that includes signing up fo
 
 ## Content
 
-**[1. Opening the Programmable Banking IDE](#heading--1)**  
-**[2. Card IDE basics](#heading--2)**  
-**[3. Sign up for an online key-value pair database](#heading--3)**  
-**[4. Store the configuration parameters in env.json](#heading--4)**  
-**[5. Program the business logic in main.js](#heading--5)**  
-**[6. Now what?](#heading--6)**
+[1. Opening the Programmable Banking IDE](#heading--1)  
+[2. Card IDE basics](#heading--2)  
+[3. Sign up for an online key-value pair database](#heading--3)  
+[4. Store the configuration parameters in env.json](#heading--4)  
+[5. Program the business logic in main.js](#heading--5)  
+[6. Now what?](#heading--6)
 
 
 ----
@@ -146,6 +146,8 @@ The `simulation.json` file should open with an output that includes:
             "..."
 ```
 
+![simulation.json](/images/simulation.json.png?raw=true)
+
 ### Storing key & value
 
 Let's write a `storeKV` function to store this key and value in the data store:
@@ -171,9 +173,7 @@ and use it:
 
 Simulate again.  It should have written a record to our online database.  Let's check.
 
-Back in the Cloudflare dashboard (Menu > Workers & Pages > KV > View) 
-
-https://dash.cloudflare.com/da******************************/workers/kv/namespaces/b3******************************
+Back in the Cloudflare dashboard (Menu > Workers & Pages > KV > View) in a URL similar to `https://dash.cloudflare.com/da******************************/workers/kv/namespaces/b3******************************`
 
 we can see the new record being stored:
 
