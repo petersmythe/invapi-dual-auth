@@ -37,7 +37,7 @@ The tutorial can be completed within 20 minutes, and that includes signing up fo
 ## Opening the Programmable Banking IDE
 
 > [!NOTE]
-> Assumption: you have activated [Programmable Banking](https://www.investec.com/en_za/banking/tech-professionals/programmable-banking.html) for your account.  If not, you can now enrol on Investec Online.  
+> Assumption: you have activated [Programmable Banking](https://www.investec.com/en_za/banking/tech-professionals/programmable-banking.html) for your account.  If not, you can now enroll on Investec Online.  
 > Assumption: you have read the [Investec Card documentation](https://developer.investec.com/za/programmable-card)
 
 1. Login to Investec Online and select Manage from the menu
@@ -53,7 +53,7 @@ The tutorial can be completed within 20 minutes, and that includes signing up fo
 
 ## Card IDE basics
 
-The left side of the IDE is a simple Monaco editor that can be used to edit the `main.js` and `env.json` files that we will use to store the code.  Click on these file names to open them.  You will notice that the template contains a `beforeTransaction` and a `afterTransaction` function.  There are 3 other transaction triggers - refer to the JavaScript comments.
+The left side of the IDE is a simple Monaco editor that can be used to edit the `main.js` and `env.json` files that we will use to store the code.  Click on these file names to open them.  You will notice that the template contains a `beforeTransaction` and an `afterTransaction` function.  There are 3 other transaction triggers - refer to the JavaScript comments.
 
 ![Card IDE](/images/Card%20IDE.png?raw=true)
 
