@@ -46,7 +46,7 @@ The tutorial can be completed within 20 minutes, and that includes signing up fo
 1. Select your account, find the preferred card and toggle the Enabled button to On
 1. Hover over the card and click <programmable.../> to open the Card IDE
 
-![Opening Programmable Banking IDE](/images/Opening%20Programmable%20Banking%20IDE.png?raw=true)
+![Opening Programmable Banking IDE](./images/Opening%20Programmable%20Banking%20IDE.png?raw=true)
 
 
 <a name="heading--2"/>
@@ -55,11 +55,11 @@ The tutorial can be completed within 20 minutes, and that includes signing up fo
 
 The left side of the IDE is a simple Monaco editor that can be used to edit the `main.js` and `env.json` files that we will use to store the code.  Click on these file names to open them.  You will notice that the template contains a `beforeTransaction` and an `afterTransaction` function.  There are 3 other transaction triggers - refer to the JavaScript comments.
 
-![Card IDE](/images/Card%20IDE.png?raw=true)
+![Card IDE](./images/Card%20IDE.png?raw=true)
 
 On the right, you will find a way to simulate a transaction and to view any event logs.  Try it out now, by setting a transaction amount (in cents), the merchant code (e.g. 5462), merchant name (e.g. The Coders Bakery) and then click on Simulate card transaction.  Switch to the Event Logs > Simulator logs and you will see a `before` and an `after` log entry, and the time that it was executed at.  Click on `before` to load the record as `simulation.json` in the editor.
 
-![Simulation](/images/Simulation.png?raw=true)
+![Simulation](./images/Simulation.png?raw=true)
 
 <a name="heading--3"/>
 
@@ -79,12 +79,12 @@ For this tutorial, we will make use of [Cloudflare Workers KV](https://developer
 1. You can leave the other settings at their defaults, or restrict the token usage further
 1. Copy the newly created API token: Eh***********************************
 
-![Cloudflare token](/images/Cloudflare%20token.png?raw=true)
+![Cloudflare token](./images/Cloudflare%20token.png?raw=true)
 
 1. Now let's create a new KV namespace to store the data in.  Select Menu > Workers & Pages > KV
 1. Create a namespace e.g. `invapi-dual-auth`.  Copy the random ID that is automatically generated.  b3******************************
 
-![Cloudflare KV](/images/Cloudflare%20KV.png?raw=true)
+![Cloudflare KV](./images/Cloudflare%20KV.png?raw=true)
 
 > [!TIP]
 > Keep the Cloudflare dashboard open for later testing.
@@ -108,7 +108,7 @@ Copy the JSON below and change it to suit your needs
 }
 ```
 
-![env.json](/images/env.json.png?raw=true)
+![env.json](./images/env.json.png?raw=true)
 
 
 <a name="heading--5"/>
@@ -146,7 +146,7 @@ The `simulation.json` file should open with an output that includes:
             "..."
 ```
 
-![simulation.json](/images/simulation.json.png?raw=true)
+![simulation.json](./images/simulation.json.png?raw=true)
 
 ### Storing key & value
 
@@ -181,7 +181,7 @@ we can see the new record being stored:
 | --- | --- |
 
 
-![Cloudflare KV stored](/images/Cloudflare%20KV%20stored.png?raw=true)
+![Cloudflare KV stored](./images/Cloudflare%20KV%20stored.png?raw=true)
 
 
 ### Retrieving the value for a key
@@ -267,7 +267,7 @@ Any logs will now appear under Event Logs > Production logs
 
 
 
-![Code published](/images/Code%20published.png?raw=true)
+![Code published](./images/Code%20published.png?raw=true)
 
 
 <a name="heading--6"/>
