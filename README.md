@@ -108,6 +108,7 @@ Copy the JSON below and change it to suit your needs
 
 ![env.json](./images/env.json.png?raw=true)
 
+We will see later how to access these environment variables.  (Hint: `process.env.accountId`)
 
 <a name="heading--5"/>
 
@@ -170,6 +171,8 @@ and use it, in the `beforeTransaction` function, just after the code we added in
     console.log(`${key}: ` + JSON.stringify(value));
     await storeKV(key, value);
 ```
+
+> :bulb: **Tip:** Notice how we can access the environment variables using `process.env.accountId` etc. which helps to keep our code more secure.
 
 Simulate again.  It should have written a record to our online database.  Let's check.
 
