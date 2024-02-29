@@ -8,3 +8,9 @@ https://developers.cloudflare.com/kv/api/write-key-value-pairs/#expiring-keys
 
 * Toggle Simulator back on doesn't work
 * In env.json, number or boolean gets forced to a string
+
+### GitHub pages markdown
+
+How frustrating is it that admonitions (e.g. > :bulb: :warning: ) work in https://github.com/petersmythe/invapi-dual-auth but not in https://petersmythe.github.io/invapi-dual-auth/ - they appear to use different flavours of markdown
+
+https://github.com/orgs/community/discussions/48797
