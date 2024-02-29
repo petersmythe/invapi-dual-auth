@@ -36,9 +36,6 @@ The tutorial can be completed within 20 minutes, and that includes signing up fo
 
 ## Opening the Programmable Banking IDE
 
-!!! warning
-	The API is documented
-
 > :warning: **Assumption:** You have activated [Programmable Banking](https://www.investec.com/en_za/banking/tech-professionals/programmable-banking.html) for your account.  If not, you can now enroll on Investec Online.  
 > :warning: **Assumption:** You have read the [Investec Card documentation](https://developer.investec.com/za/programmable-card)
 
