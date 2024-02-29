@@ -36,6 +36,9 @@ The tutorial can be completed within 20 minutes, and that includes signing up fo
 
 ## Opening the Programmable Banking IDE
 
+!!! warning
+	The API is documented
+
 > :warning: **Assumption:** You have activated [Programmable Banking](https://www.investec.com/en_za/banking/tech-professionals/programmable-banking.html) for your account.  If not, you can now enroll on Investec Online.  
 > :warning: **Assumption:** You have read the [Investec Card documentation](https://developer.investec.com/za/programmable-card)
 
@@ -113,6 +116,8 @@ Copy the JSON below and change it to suit your needs
 
 ## Program the business logic in main.js
 
+For the next 4 steps we will be editing the `main.js` file, to show you just how easy it is to use JavaScript to add custom functionality to your credit cards.
+
 ### Key & value
 
 We want to modify the `beforeTransaction` function to first build up a unique key for this transaction (and the following one) so that they can be paired together.  While the transaction time **will** differ, the currencyCode, transaction amount, merchant category code and name will be constant and can be concatenated to form the unique key.
@@ -125,7 +130,7 @@ We want to modify the `beforeTransaction` function to first build up a unique ke
 
 For the value, we store the `cardId` (to check if the same or a different card is used for the second transaction) and the current timestamp, for later use.
 
-Edit `main.js` and insert this code at the start of the `beforeTransaction` function, Save and then simulate a transaction, as before.
+Open `main.js` and insert this code at the start of the `beforeTransaction` function, Save and then simulate a transaction, as before.
 
 The `simulation.json` file should open with an output that includes:
 
@@ -148,7 +153,7 @@ The `simulation.json` file should open with an output that includes:
 
 ### Storing key & value
 
-Let's write a `storeKV` function to store this key and value in the data store:
+Let's write a `storeKV` function (at the top of `main.js`) to store this key and value in the data store:
 
 ```javascript
 async function storeKV(key, value) {
@@ -162,7 +167,7 @@ async function storeKV(key, value) {
 };
 ```
 
-and use it:
+and use it, in the `beforeTransaction` function, just after the code we added in the step above:
 
 ```javascript
     console.log(`${key}: ` + JSON.stringify(value));
@@ -171,20 +176,21 @@ and use it:
 
 Simulate again.  It should have written a record to our online database.  Let's check.
 
-Back in the Cloudflare dashboard (Menu > Workers & Pages > KV > View) in a URL similar to `https://dash.cloudflare.com/da******************************/workers/kv/namespaces/b3******************************`
+Back in the Cloudflare dashboard (Menu > Workers & Pages > KV > View) in a URL similar to `https://dash.cloudflare.com/da***********/workers/kv/namespaces/b3************`
 
 we can see the new record being stored:
 
 | zar-10000-5462-The Coders Bakery | {"cardId":"65****","now":1708973567993} |
 | --- | --- |
 
+----
 
 ![Cloudflare KV stored](./images/Cloudflare%20KV%20stored.png?raw=true)
 
 
 ### Retrieving the value for a key
 
-Now that we have got some data to use, let's write a `getKV` function to retrieve it, based on the provided key.  It might return 404 (Not Found) or an old (expired) value.
+Now that we have got some data to use, let's write a similar `getKV` function to retrieve it, based on the provided key.  It might return 404 (Not Found) or an old (expired) value.
 
 ```javascript
 async function getKV(key) {
@@ -197,9 +203,11 @@ async function getKV(key) {
 };
 ```
 
-and use it:
+and use it, replacing the call to `storeKV` (see the full [main.js](./main.js) in the repository for guidance):
 
 ```javascript
+    console.log(`${key}: ` + JSON.stringify(value));
+    // await storeKV(key, value);
     var prev_value = await getKV(key);
     const firstTrans = await prev_value.json();
     console.log(firstTrans);	
@@ -230,6 +238,8 @@ Here are the code snippets:
     }
 ```
 
+and
+
 ```javascript
     const firstTrans = await prev_value.json();
     // console.log(firstTrans);
@@ -239,6 +249,8 @@ Here are the code snippets:
         return false // Decline, and save as the first transaction
     }
 ```
+
+and
 
 ```javascript
     await storeKV(key, value); // Store as most recent, in case this transaction is now declined due to differentCard logic
@@ -251,24 +263,24 @@ Here are the code snippets:
     }
 ```
 
-and the full [main.js](/main.js) can be found in the repository.
+If you need help, the full [main.js](./main.js) can be found in the repository.
 
-What are you waiting for?  Try it out!
+What are you waiting for?  Try it out in the simulator!
 
 ### Going live
 
 Up to this point, we have only been simulating the transactions.  The next step is to deploy this to one or more cards and to go shopping.  You'll just have to ask the teller to "please try the purchase again".
 
-Click on Deploy code to card and check for the Code published! popup message.
+Click on Deploy code to card and check for the `Code published!` popup message.
 
 Any logs will now appear under Event Logs > Production logs
-
-
 
 ![Code published](./images/Code%20published.png?raw=true)
 
 
 <a name="heading--6"/>
+
+----
 
 ## Now what? 
 
