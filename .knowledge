@@ -14,3 +14,13 @@ https://developers.cloudflare.com/kv/api/write-key-value-pairs/#expiring-keys
 How frustrating is it that admonitions (e.g. > :bulb: :warning: ) work in https://github.com/petersmythe/invapi-dual-auth but not in https://petersmythe.github.io/invapi-dual-auth/ - they appear to use different flavours of markdown
 
 https://github.com/orgs/community/discussions/48797
+
+### Visa 2 second timeout
+
+Watch out for that 2 second limit for the `beforeTransaction` function!  If you do not `return false` well before 2 seconds, the transaction is automatically approved.  The simulator does not enforce this same limit, unfortunately.
+
+### Local alternative to Cloudflare KV
+
+Looking back through old programmable banking community projects, I came across Frikkie Snyman's wonderful offering.  Check it out:
+
+https://www.kvaas.cloud/
