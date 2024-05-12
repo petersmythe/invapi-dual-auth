@@ -47,7 +47,7 @@ async function storeKV(key, value) {
     }
 
     /*await*/ storeKV(key, value); // Store as most recent, in case this transaction is now declined due to differentCard logic
-    if (process.env.differentCard == "true"){   // Grrr, workaround env.json forcing everything to a string
+    if (process.env.differentCard){
         // console.log(cardId !== firstTrans.cardId)
         return (cardId !== firstTrans.cardId);
     } else {
@@ -60,10 +60,15 @@ async function storeKV(key, value) {
 const afterTransaction = async (transaction) => {
   console.log(transaction);
 };
-
 // This function runs after a transaction has been declined.
-// const afterDecline = async (transaction) => { };
+const afterDecline = async (transaction) => { 
+  console.log(transaction);
+};
 // This function runs after a transaction has been reversed.
-// const afterReversal = async (transaction) => { };
+const afterReversal = async (transaction) => { 
+  console.log(transaction);
+};
 // This function runs after a transaction has been adjusted.
-// const afterAdjustment = async (transaction) => { };
+const afterAdjustment = async (transaction) => { 
+  console.log(transaction);
+};
